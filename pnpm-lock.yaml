@@ -8,6 +8,9 @@ dependencies:
   '@babel/preset-env':
     specifier: ^7.23.8
     version: registry.npmmirror.com/@babel/preset-env@7.23.8(@babel/core@7.23.7)
+  tslib:
+    specifier: ^2.6.2
+    version: 2.6.2
 
 devDependencies:
   rollup:
@@ -664,7 +667,6 @@ packages:
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==, tarball: https://registry.npmmirror.com/tslib/-/tslib-2.6.2.tgz}
-    dev: true
 
   /typescript@5.3.3:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==, tarball: https://registry.npmmirror.com/typescript/-/typescript-5.3.3.tgz}

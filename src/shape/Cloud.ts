@@ -1,6 +1,7 @@
-import {ICloud} from '../type/type'
+import {ICloudOptions} from '../type/type'
+import { Shape } from './Shape';
 
-class Cloud {
+class Cloud extends Shape {
   ctx: CanvasRenderingContext2D;
   r: number;
   startX: number;
@@ -9,27 +10,32 @@ class Cloud {
   y_number: number;
   width: number;
   height: number;
-  constructor(ctx: CanvasRenderingContext2D, options: ICloud) {
+  constructor(ctx: CanvasRenderingContext2D, options: ICloudOptions) {
+    super(ctx, {
+      ...options,
+      type: 'cloud',
+    
+    });
     const {
       r,
-      x,
-      y,
+      startX,
+      startY,
       width,
       height,
     } = options;
 
     this.ctx = ctx;
     this.r = r;
-    this.startX = x;
-    this.startY = y;
+    this.startX = startX;
+    this.startY = startY;
     this.x_number = (Math.abs(width) - 4*r)/(2 *r) < 0 ?  0 : (Math.abs(width) - 4*r)/(2 *r);
     this.y_number = (Math.abs(height) - 4*r)/(2 *r)<0 ? 0: (Math.abs(height) - 4*r)/(2 *r);
 
-    this.width = width;
-    this.height = height;
+    this.width = Math.ceil((width) / (2 *r))* 2*r;
+    this.height = Math.ceil((height) / (2 * r)) * 2*r;;
     
     if(width <0){
-      this.startX = this.startX   + width ;
+      this.startX = this.startX  + width ;
 
     }
     if(height <0 && Math.abs(height) > r) {
@@ -82,8 +88,8 @@ class Cloud {
     };
   }
   draw(ctx: CanvasRenderingContext2D | Path2D){
-    ctx.arc(this.startX + this.r, this.startY + this.r, this.r, Math.PI / 2, 0, false);
-    const { x, y } = this.drawTopWidthArc(this.startX + this.r, this.startY + this.r, ctx);
+    ctx.arc(this.startX, this.startY, this.r, Math.PI / 2, 0, false);
+    const { x, y } = this.drawTopWidthArc(this.startX, this.startY + this.r, ctx);
     ctx.arc(x, y, this.r, -Math.PI, 0.5 * Math.PI, false);
     const { x: x2, y: y2 } = this.drawRightHeightArc(x, y, ctx);
 
@@ -99,6 +105,17 @@ class Cloud {
     this.ctx.stroke();
     this.ctx.restore();
 
+  }
+  getShapeData(): Record<string, any> {
+    const shape = super.getShapeData()
+      return {
+        ...shape,
+        startX: this.startX,
+        startY: this.startY,
+        width: this.currentX - this.startX,
+        height: this.currentY - this.startY,
+        r: this.r
+      }
   }
 }
 export {
